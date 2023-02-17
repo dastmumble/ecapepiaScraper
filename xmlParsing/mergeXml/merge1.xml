@@ -1,0 +1,12 @@
+<sample id="1">
+<workflow value="x" version="1"/>
+  <results>
+   <result type="T">
+      <result_data type="value" value="19"/>
+      <result_data type="value" value="15"/>
+      <result_data type="value" value="14"/>
+      <result_data type="value" value="13"/>
+      <result_data type="value" value="12"/>
+    </result>
+  </results>
+</sample>
