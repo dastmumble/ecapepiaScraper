@@ -1,12 +1,13 @@
 import datetime
 from dateutil.relativedelta import *
 
-monday = datetime.date.today() + relativedelta(weekday=MO(-2))
+#지난주 월요일과 금요일을 YYYYMMDD로 출력함.
+monday = datetime.date(2023,4,30) + relativedelta(weekday=MO(-2))
 monday = monday.strftime('%Y%m%d')
 
-friday = datetime.date.today() + relativedelta(weekday=FR(-2))
-
-print(monday)
+friday = datetime.date.today() + relativedelta(weekday=FR(-1))
+friday = friday.strftime('%Y%m%d')
+print(monday,friday)
 # import requests
 # from bs4 import BeautifulSoup
 # url = 'http://data.ekape.or.kr/openapi-data/service/user/grade/auct/pigPriceDetail'
