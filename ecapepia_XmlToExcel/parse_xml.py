@@ -2,6 +2,7 @@ import xml.etree.cElementTree as ET
 import datetime
 import requests
 from bs4 import BeautifulSoup
+import pandas as pd
 
 #돼지고기 상세정보 데이터 요청 및 조건 입력
 url = 'http://data.ekape.or.kr/openapi-data/service/user/grade/auct/pigPriceDetail'
@@ -24,30 +25,33 @@ removeTags = soup.findAll(["header","judgeSexNm","notice","gradeCd","gradeType",
 for removeTag in removeTags:
     removeTag.extract()
 
-#schema 참조
-response = soup.find('response')
-response['xmlns:xsi'] = "http://www.w3.org/2001/XMLSchema-instance"
+# #schema 참조
+# response = soup.find('response')
+# response['xmlns:xsi'] = "http://www.w3.org/2001/XMLSchema-instance"
 
-#xml item 순서바꾸기
+#xml item 데이터프레임에 넣기
 old_items = soup.findAll('item')
-for old_item in old_items:
-    new_item = soup.new_tag('item')
-    new_item.append(old_item.startYmd)
-    new_item.append(old_item.endYmd)
-    new_item.append(old_item.gradeNm)
-    new_item.append(old_item.auctCnt)
-    new_item.append(old_item.weight)
-    new_item.append(old_item.auctAmt)
-    new_item.append(old_item.maxAuctAmt)
-    new_item.append(old_item.minAuctAmt)
-    new_item.append(old_item.sumAuctAmt)
-    new_item.append(old_item.sumWeight)
-    old_item.replace_with(new_item)
+data = []
+for row in old_items:
+    data.append({
+        'startYmd': row.startYmd.text,
+        'endYmd': row.endYmd.text,
+        'gradeNm': row.gradeNm.text,
+        'auctCnt': row.auctCnt.text,
+        'weight': row.weight.text,        
+        'auctAmt': row.auctAmt.text,
+        'maxAuctAmt': row.maxAuctAmt.text,
+        'minAuctAmt': row.minAuctAmt.text,
+        'sumAuctAmt': row.sumAuctAmt.text,
+        'sumWeight': row.sumWeight.text,
+    })
+df = pd.DataFrame(data)
+print(df)
 
 #result.xml로 쓰기
-today = datetime.date.today
-with open(f"./result/{params['startYmd'][-4:]}~{params['endYmd'][-4:]}_돼지경락상세.xml", "w", encoding="utf-8") as f:
-    f.write(soup.prettify())
+# today = datetime.date.today
+# with open(f"./result/{params['startYmd'][-4:]}~{params['endYmd'][-4:]}_돼지경락상세.xml", "w", encoding="utf-8") as f:
+#     f.write(soup.prettify())
 
 
 

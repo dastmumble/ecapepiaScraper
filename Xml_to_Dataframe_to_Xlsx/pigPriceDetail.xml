@@ -1,4 +1,4 @@
-<body>
+<items>
     <item>
         <auctAmt>5712</auctAmt>
         <auctCnt>670</auctCnt>
@@ -118,4 +118,4 @@
         <sumWeight>225517</sumWeight>
         <weight>88</weight>
     </item>
-</body>
+</items>

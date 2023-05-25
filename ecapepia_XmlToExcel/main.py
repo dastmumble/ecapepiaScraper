@@ -1,30 +1,24 @@
-import datetime
-from dateutil.relativedelta import *
+#xml -> xslx를 위한 파싱
+from bs4 import BeautifulSoup
+with open("./result/0213~0217_돼지경락상세.xml", encoding="UTF-8") as input:
+    soup = BeautifulSoup(input, 'xml')
+    items = soup.find_all("item")
+    print(items)
 
-#지난주 월요일과 금요일을 YYYYMMDD로 출력함.
-monday = datetime.date.today() + relativedelta(weekday=MO(-2))
-monday = monday.strftime('%Y%m%d')
 
-friday = datetime.date.today() + relativedelta(weekday=FR(-1))
-friday = friday.strftime('%Y%m%d')
-print(monday,friday)
-# import requests
-# from bs4 import BeautifulSoup
-# url = 'http://data.ekape.or.kr/openapi-data/service/user/grade/auct/pigPriceDetail'
-# params ={'serviceKey' : 'nuRQIAuQHVRpf6FIS7ROERFaRprJYUefG8H65yAeZlgd5i1d0n3kN9EmbsYx438A31YhDPY+kzT7Orx5TjA5GA==', 'abattCd' : '0302', 'startYmd' : '20160101', 'endYmd' : '20160131', 'skinYn' : 'N', 'sexCd' : '025001' }
 
-# #soup 오브젝트 생성
-# response = requests.get(url, params=params)
-# xml_data = response.text
-# soup = BeautifulSoup(xml_data, "xml")
 
-# #필요없는 태그 지우기
-# removeTags = soup.findAll(["header","judgeSexNm","notice","gradeCd","gradeType","gradeType","judgeSexCd","skinNm","skinYn"])
-# for removeTag in removeTags:
-#     removeTag.extract()
+#지난주 월~금 날짜 출력
+# import datetime
+# from dateutil.relativedelta import *
 
-# #result.xml로 쓰기
-# with open("result.xml", "w", encoding="utf-8") as f:
-#     f.write(str(soup.prettify()))
+# #지난주 월요일과 금요일을 YYYYMMDD로 출력함.
+# monday = datetime.date.today() + relativedelta(weekday=MO(-2))
+# monday = monday.strftime('%Y%m%d')
+
+# friday = datetime.date.today() + relativedelta(weekday=FR(-1))
+# friday = friday.strftime('%Y%m%d')
+# print(monday,friday)
+
 
 

@@ -1,7 +1,7 @@
 import os
 import pandas as pd
 
-Dataframe = pd.read_xml("./pigPriceDetail.xml")
+Dataframe = pd.read_xml("./Xml_to_Dataframe_to_Xlsx/pigPriceDetail.xml")
 
 #엑셀 선택하고 시트 선택하기
 file_path = "./output.xlsx"
